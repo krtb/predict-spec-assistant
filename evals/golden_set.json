@@ -1,0 +1,62 @@
+[
+  {
+    "id": "churn_definition",
+    "question": "What defines churn (Success) in this model?",
+    "reference": "Churn (called Success) is defined as: Account brand equals Atlas AND Opportunity type contains 'Renewal' AND Opportunity Stage equals Closed Lost.",
+    "expect_refusal": false
+  },
+  {
+    "id": "renewal_definition",
+    "question": "How is a renewal defined?",
+    "reference": "Renewal (called Fail) is defined as: Account brand equals Atlas AND Opportunity type contains 'Renewal' AND Opportunity Stage equals Closed Won.",
+    "expect_refusal": false
+  },
+  {
+    "id": "audience_window",
+    "question": "What is the days-to-renewal window for the audience?",
+    "reference": "The Audience includes open opportunities where Days to next renewal is greater than 30 and less than 180.",
+    "expect_refusal": false
+  },
+  {
+    "id": "reference_date_logic",
+    "question": "How is the reference date calculated for historical churn and renewal records?",
+    "reference": "For Success and Fail records, the reference date is a random date between Close date minus 180 days and Close date minus 30 days. Audience records use the current date.",
+    "expect_refusal": false
+  },
+  {
+    "id": "id_mapping",
+    "question": "How are the analytics platform and Salesforce accounts joined together?",
+    "reference": "Through a custom Salesforce object called PlatformAssets, a child object of Account, which holds the mapping between Salesforce Account ID and the analytics platform's Account ID.",
+    "expect_refusal": false
+  },
+  {
+    "id": "arr_bucketing",
+    "question": "Why are the ARR and ATR fields segmented into buckets instead of used as raw numbers?",
+    "reference": "Because large customers behave differently from small ones; bucketing lets the model learn size-based patterns rather than treating ARR as a linear scale.",
+    "expect_refusal": false
+  },
+  {
+    "id": "lag_windows",
+    "question": "What are the lag windows used for product usage cohorts?",
+    "reference": "Last 1 month, Last 1-2 months, Last 3-4 months, and Last 10-11 months, with regular cohorts plus ratios between adjacent windows.",
+    "expect_refusal": false
+  },
+  {
+    "id": "amendments",
+    "question": "Are amendments ever counted as churn?",
+    "reference": "Yes. Amendments are counted as churn when the amendment type has Ending ARR equal to 0.",
+    "expect_refusal": false
+  },
+  {
+    "id": "out_of_scope_refusal",
+    "question": "What is the exact CatBoost learning rate hyperparameter used to train this model?",
+    "reference": "This is NOT specified in the spec. The assistant should refuse and say the information is not in the provided spec.",
+    "expect_refusal": true
+  },
+  {
+    "id": "product_lines",
+    "question": "Which product lines will get their own models, and which is built first?",
+    "reference": "Three models are planned: Atlas (Enterprise), Beacon (Professional), and Cobalt (Spend). Atlas is built first.",
+    "expect_refusal": false
+  }
+]
